@@ -39,14 +39,17 @@ const todos = [];
 const rootResolver = {
     todos: () => todos,
     createTodo: (args) => {
+        console.log(args);
+        const {createTodoInput} =args 
         const todo = {
             _id: uuid(),
-            title: args.title,
-            desc: args.desc,
-            date: new Date().toISOString(),
-            status: false
+            title: createTodoInput.title,
+            desc: createTodoInput.desc,
+            date: createTodoInput.date,
+            status: createTodoInput.status
         }
         todos.push(todo)
+        return todo
     }
 }
 
