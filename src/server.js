@@ -1,74 +1,67 @@
-const express = require("express")
-const express_graphql = require("express-graphql")
-const { buildSchema } = require("graphql")
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const graphqlHttp = require('express-graphql');
+const { buildSchema } = require('graphql');
+const uuid = require('uuid');
 
-//graphql schema
-const appSchema = buildSchema(`
-    type Query {
-        todo(id:String!):Todo
-        todos:[Todo]
+const schema = buildSchema(`
+    schema {
+        query : RootQuery
+        mutation : RootMutation
+    }
+    type RootQuery {
+        todos: [Todo!]!
+    }
+    type RootMutation {
+        createTodo(createTodoInput:createTodoInput) : Todo!
     }
 
-    type Todo {
-        id : String
-        title : String
-        desc : String
-        status : Boolean
+    type Todo{
+        _id:String!
+        title:String!
+        desc:String!
+        date:String!
+        status:Boolean
     }
-`)
 
-//dummy data 
-var todos = [
-    {
-        id: 1,
-        title: "pokemon",
-        desc: "watch pokemon",
-        status: false
-    },
-    {
-        id: 2,
-        title: "pokemon2",
-        desc: "watch pokemon2",
-        status: false
-    },
-    {
-        id: 3,
-        title: "pokemon3",
-        desc: "watch pokemon3",
-        status: false
-    },
-    {
-        id: 4,
-        title: "pokemon4",
-        desc: "watch pokemon4",
-        status: false
-    },
-    {
-        id: 5,
-        title: "pokemon5",
-        desc: "watch pokemon5",
-        status: false
-    }]
+    input createTodoInput{
+        title:String!
+        desc:String!
+        date:String!
+        status:Boolean
+    }
 
+`);
 
-//resolver
-const root = {
-    todo: (args) => {
-        return todos.filter(ele => { return ele.id == args.id })[0]
-    },
-    todos: () => todos
+const todos = [];
+
+const rootResolver = {
+    todos: () => todos,
+    createTodo: (args) => {
+        const todo = {
+            _id: uuid(),
+            title: args.title,
+            desc: args.desc,
+            date: new Date().toISOString(),
+            status: false
+        }
+        todos.push(todo)
+    }
 }
 
-//server
+app.use(bodyParser.json())
 
-const app = express()
-app.use("/graphql", express_graphql({
-    schema: appSchema,
-    rootValue: root,
+app.get("/", (req, res, next) => {
+    res.send("hellow world!")
+})
+
+app.use("/graphql", graphqlHttp({
+    schema: schema,
+    rootValue: rootResolver,
     graphiql: true
 }))
 
 app.listen(4000, () => {
-    console.log("grapghl on port 4000");
-
+    console.log(`running @ 4000`);
 })
