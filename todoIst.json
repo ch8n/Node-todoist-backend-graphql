@@ -1,32 +1,20 @@
 {
   "todos": [
     {
-      "_id": "945387df-3265-45ab-8143-110bb9b6f839",
-      "title": "test",
-      "desc": "sample desc",
-      "date": "2019-10-07T03:52:16.256Z",
+      "_id": "5ea5d0da-db30-4224-86fd-87b8bead9c47",
+      "userId": "78a6b1e6-fac9-4d76-91f8-fac9777570be",
+      "title": "sample",
+      "desc": "test dummy desc",
+      "date": "2019-10-07T05:02:50.093Z",
       "status": false
-    },
+    }
+  ],
+  "users": [
     {
-      "_id": "ed9f0caf-606e-41be-8fbf-848eeea6922c",
-      "title": "test",
-      "desc": "sample desc",
-      "date": "2019-10-07T03:52:16.256Z",
-      "status": false
-    },
-    {
-      "_id": "cd953601-22d7-49e5-befc-9c90df081046",
-      "title": "test",
-      "desc": "sample desc",
-      "date": "2019-10-07T03:52:16.256Z",
-      "status": false
-    },
-    {
-      "_id": "200e43b8-68f5-4f9c-bc82-ea7c432e6452",
-      "title": "test",
-      "desc": "sample desc",
-      "date": "2019-10-07T03:52:16.256Z",
-      "status": false
+      "_id": "78a6b1e6-fac9-4d76-91f8-fac9777570be",
+      "userName": "ch8n",
+      "password": "$2a$12$ihpXqPeku1dIZ3smXW.bCelhFbWNF5coMbg6m6nDSDYna3tk5TDAu",
+      "email": "chetan.garg36@gmail.com"
     }
   ]
 }
