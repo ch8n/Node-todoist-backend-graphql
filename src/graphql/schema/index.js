@@ -8,16 +8,39 @@ const schema = buildSchema(`
     type RootQuery {
         todos: [Todo!]!
         users:[User!]!
-        userTodo(id:String!): [Todo!]!
+        projects:[Project]!
         user(id:String!): User!
     }
     type RootMutation {
         createTodo(createTodoInput:createTodoInput) : Todo!
+        updateTodo(updateTodoInput:updateTodoInput) : Todo!
         createUser(userInput:createUserInput) : User!
+        createProject(projectInput:createProjectInput) : Project!
+
     }
 
     type Todo{
         _id:String!
+        projectId:String
+        userId:String!
+        title:String!
+        desc:String!
+        date:String!
+        status:Boolean
+    }
+
+    input createTodoInput{
+        userId:String!
+        projectId:String
+        title:String!
+        desc:String!
+        date:String!
+        status:Boolean
+    }
+    
+    input updateTodoInput{
+        todoId:String!
+        projectId:String
         title:String!
         desc:String!
         date:String!
@@ -30,14 +53,7 @@ const schema = buildSchema(`
         password:String
         email:String!
         todos:[Todo!]
-    }
-
-    input createTodoInput{
-        userId:String!
-        title:String!
-        desc:String!
-        date:String!
-        status:Boolean
+        projects:[Project!]
     }
 
     input createUserInput{
@@ -46,6 +62,20 @@ const schema = buildSchema(`
         email:String!
     }
 
+    type Project {
+        _id:String!
+        projectName:String!
+        userId:String!
+        todos:[Todo]!
+    }
+
+
+    input createProjectInput{
+        projectName:String!
+        userId:String!
+        todos:[String]!
+    }
+   
 `);
 
 module.exports = schema

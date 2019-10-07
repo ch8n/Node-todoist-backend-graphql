@@ -1,20 +1,14 @@
 {
   "todos": [
     {
-      "_id": "5ea5d0da-db30-4224-86fd-87b8bead9c47",
-      "userId": "78a6b1e6-fac9-4d76-91f8-fac9777570be",
-      "title": "sample",
-      "desc": "test dummy desc",
+      "_id": "c6b00fd2-67ae-447b-8b91-a19f2e8d7134",
+      "userId": "5876b6ce-adc2-475c-aa90-db2088faa735",
+      "title": "updated title2",
+      "desc": "yodated dummy desc",
       "date": "2019-10-07T05:02:50.093Z",
-      "status": false
+      "status": true
     }
   ],
-  "users": [
-    {
-      "_id": "78a6b1e6-fac9-4d76-91f8-fac9777570be",
-      "userName": "ch8n",
-      "password": "$2a$12$ihpXqPeku1dIZ3smXW.bCelhFbWNF5coMbg6m6nDSDYna3tk5TDAu",
-      "email": "chetan.garg36@gmail.com"
-    }
-  ]
+  "users": [],
+  "projects": []
 }
