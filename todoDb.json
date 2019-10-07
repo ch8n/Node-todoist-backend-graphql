@@ -1,0 +1,12 @@
+{
+  "todos": [
+    {
+      "_id": "7ae9821e-33be-4e5e-a2fa-20e4ae0c19e4",
+      "userId": "6cfbe350-d4ec-48c9-959c-20bfda2b6f99",
+      "title": "sample",
+      "desc": "test dummy desc",
+      "date": "2019-10-07T05:02:50.093Z",
+      "status": false
+    }
+  ]
+}

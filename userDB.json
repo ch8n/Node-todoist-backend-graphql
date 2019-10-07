@@ -1,0 +1,10 @@
+{
+  "users": [
+    {
+      "_id": "6cfbe350-d4ec-48c9-959c-20bfda2b6f99",
+      "userName": "ch8n",
+      "password": "$2a$12$FAwXV0CrkSuzni.pxbnFyerUdUz4oO27pmITn3nEPeYxgeNIzpPCa",
+      "email": "chetan.garg36@gmail.com"
+    }
+  ]
+}

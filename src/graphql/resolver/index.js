@@ -57,18 +57,26 @@ const rootResolver = {
     },
 
     createProject: async (args) => {
+        console.clear()
         console.log(args);
         const { projectInput } = args
-        let user = await userDB.find({ _id: projectInput.userId }).value()
-        if (user) {
+        let userTodo = getUserTodo(projectInput.userId)
+        if (userTodo.length > 0) {
             //todo find todo and put projectId
-
             const project = {
                 _id: uuid(),
                 projectName: projectInput.projectName,
                 userId: projectInput.userId,
                 todos: projectInput.todos
             }
+            console.log(project);
+            projectInput.todos.forEach(async (todoIds) => {
+                let task = userTodo.filter(userTodo => userTodo._id === todoIds)
+                task.projectId = project_id
+                let updated = await todoDB.find({ _id: task._id }).assign(task).write()
+                console.log(updated);
+            })
+
             await projectDB.push(project).write()
             return {
                 project,
