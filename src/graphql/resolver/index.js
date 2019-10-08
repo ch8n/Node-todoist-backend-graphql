@@ -11,13 +11,21 @@ const getUserTodo = async (userId) => {
 }
 
 const getUserProjects = async (userId) => {
-    let userTodos = await getUserTodo(userId);
-    let projects = await projectDB.filter({ userId: id }).value()
-    let projectWithTodos = await projects.map(current => {
-        let todos = userTodos.filter(ele => ele.projectId === current.projectId)
-        current.todos = todos
-        return current
+
+    let projects = await projectDB.filter({ userId: userId }).value()
+
+    let projectWithTodos = await projects.map(async (currProject) => {
+        let todos = []
+        await currProject.todos.forEach(async (todoId) => {
+            let todo = await todoDB.find({ _id: todoId }).value()
+            if (todo) {
+                todos.push(todo)
+            }
+        })
+        currProject.todos = todos
+        return currProject
     })
+
     return projectWithTodos
 }
 
@@ -33,12 +41,18 @@ const rootResolver = {
 
     projects: async () => {
         let projects = await projectDB.value()
-        let todos = await rootResolver.todos()
-        let projectWithTodos = await projects.map(current => {
-            let tasks = todos.filter(ele => ele.projectId === current.projectId)
-            current.todos = tasks
-            return current
+        let projectWithTodos = await projects.map(async (currProject) => {
+            let todos = []
+            await currProject.todos.forEach(async (todoId) => {
+                let todo = await todoDB.find({ _id: todoId }).value()
+                if (todo) {
+                    todos.push(todo)
+                }
+            })
+            currProject.todos = todos
+            return currProject
         })
+
         return projectWithTodos
     },
 
@@ -48,8 +62,9 @@ const rootResolver = {
         if (user) {
             return {
                 ...user,
-                todos: getUserProjects,
-                projects: getUserProjects
+                password: "restricted",
+                todos: () => getUserTodo(id),
+                projects: () => getUserProjects(id)
             }
         } else {
             throw new Error("User not found")
