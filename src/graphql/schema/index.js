@@ -10,13 +10,13 @@ const schema = buildSchema(`
         users:[User!]!
         projects:[Project]!
         user(id:String!): User!
+        login(authInput:AuthInput):Auth!
     }
     type RootMutation {
         createTodo(createTodoInput:createTodoInput) : Todo!
         updateTodo(updateTodoInput:updateTodoInput) : Todo!
         createUser(userInput:createUserInput) : User!
         createProject(projectInput:createProjectInput) : Project!
-
     }
 
     type Todo{
@@ -75,7 +75,17 @@ const schema = buildSchema(`
         userId:String!
         todos:[String]!
     }
-   
+
+    type Auth {
+        userId:String!
+        token:String!
+        tokenExpire:Int!
+    }
+
+    input AuthInput {
+        userId:String!
+        password:String!
+    }   
 `);
 
 module.exports = schema

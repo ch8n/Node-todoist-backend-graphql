@@ -4,7 +4,10 @@ const userDB = require("../../model/userDb")
 
 const todoResolver = {
     todos: async () => await todoDB.value(),
-    createTodo: async (args) => {
+    createTodo: async (args,req) => {
+        if (!req.isAuth) {
+            throw new Error("not authorized")
+        }
         console.log(args);
         const { createTodoInput } = args
         let user = await userDB.find({ _id: createTodoInput.userId }).value()
@@ -24,7 +27,10 @@ const todoResolver = {
             return new Error("User not found")
         }
     },
-    updateTodo: async (args) => {
+    updateTodo: async (args,req) => {
+        if (!req.isAuth) {
+            throw new Error("not authorized")
+        }
         console.log(args);
         const { updateTodoInput } = args
         let todo = await todoDB.find({ _id: updateTodoInput.todoId }).value()

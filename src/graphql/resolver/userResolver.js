@@ -1,6 +1,9 @@
 const uuid = require('uuid');
+const todoDB = require("../../model/todoDb")
 const userDB = require("../../model/userDb")
+const projectDB = require("../../model/projectDB")
 const bCrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 const getUserTodo = async (userId) => {
     let user = await todoDB.filter({ userId: userId }).value()
@@ -74,6 +77,32 @@ const userResolver = {
             password: "restricted",
             todos: [],
             projects: []
+        }
+    },
+    login: async (args) => {
+        console.log(args);
+        let { userId, password } = args.authInput
+        let user = await userDB.find({ _id: userId }).value()
+        if (user) {
+            let isCorrect = await bCrypt.compare(password, user.password)
+            if (!isCorrect) {
+                throw new Error("Password invalid")
+            }
+            let token = await jwt.sign({
+                userId: user._id,
+                email: user.email
+            }, "thisIsHashingKeyMustBeSecret", {
+                expiresIn: "6h"
+            })
+
+            return {
+                userId: user._id,
+                token: token,
+                tokenExpire: 6
+            }
+
+        } else {
+            throw new Error("User not found")
         }
     }
 }

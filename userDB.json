@@ -11,8 +11,16 @@
     {
       "_id": "5ba77c8a-6cd8-4156-93d7-4837a2cf6816",
       "userName": "chetanWtf",
-      "password": "$2a$12$eb1OZkDM5WhXqMCnZJ.e4eIL3T0bsFLuqJiyz0r4R5jctUcVG7JNe",
-      "email": "chetanWtf.garg36@gmail.com"
+      "password": "restricted",
+      "email": "chetanWtf.garg36@gmail.com",
+      "todos": [],
+      "projects": []
+    },
+    {
+      "_id": "7d14f35b-1890-4ba9-8ba6-f2a181f48e98",
+      "userName": "chetan.g",
+      "password": "$2a$12$0JCV4GJlV.axiA26YspGMOUDASELwUO8lFvSCOthZstc7BDVMKVLG",
+      "email": "chetan@gmail.com"
     }
   ]
 }

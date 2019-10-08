@@ -1,8 +1,6 @@
 const uuid = require('uuid');
 const todoDB = require("../../model/todoDb")
-const userDB = require("../../model/userDb")
 const projectDB = require("../../model/projectDB")
-const bCrypt = require('bcryptjs')
 
 
 const getUserTodo = async (userId) => {
@@ -10,29 +8,6 @@ const getUserTodo = async (userId) => {
     return user
 }
 
-const getUserProjects = async (userId) => {
-
-    let projects = await projectDB.filter({ userId: userId }).value()
-
-    let userTodo = await getUserTodo(userId)
-    console.log(userTodo.length);
-
-    let projectWithTodos = projects.map((currProject) => {
-        let todos = []
-        currProject.todos.forEach((todoId) => {
-            let todo = userTodo.filter(todo => todo._id === todoId)[0]
-            if (todo) {
-                todos.push(todo)
-                console.log(todos.length);
-            }
-        })
-        return {
-            ...currProject, todos: todos
-        }
-    })
-    console.log(projectWithTodos);
-    return projectWithTodos
-}
 
 const projectResolver = {
     projects: async () => {
@@ -52,7 +27,10 @@ const projectResolver = {
 
         return projectWithTodos
     },
-    createProject: async (args) => {
+    createProject: async (args,req) => {
+        if (!req.isAuth) {
+            throw new Error("not authorized")
+        }
         console.log(args);
         const { projectInput } = args
         let userTodo = await getUserTodo(projectInput.userId)
