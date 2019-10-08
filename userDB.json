@@ -1,10 +1,18 @@
 {
   "users": [
     {
-      "_id": "9e26d8d6-6fa5-475d-b5e9-f2bdefee70f3",
+      "_id": "acc1995f-c877-4f17-a059-c1c1ec8eadbf",
       "userName": "ch8n",
-      "password": "$2a$12$jTCHo84f8jkXgPML.r/iiOh.hgM42MX/FOIa9WzIwYjadBlNcH6gS",
-      "email": "chetan.garg36@gmail.com"
+      "password": "restricted",
+      "email": "chetan.garg36@gmail.com",
+      "todos": [],
+      "projects": []
+    },
+    {
+      "_id": "5ba77c8a-6cd8-4156-93d7-4837a2cf6816",
+      "userName": "chetanWtf",
+      "password": "$2a$12$eb1OZkDM5WhXqMCnZJ.e4eIL3T0bsFLuqJiyz0r4R5jctUcVG7JNe",
+      "email": "chetanWtf.garg36@gmail.com"
     }
   ]
 }
