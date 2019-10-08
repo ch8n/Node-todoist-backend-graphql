@@ -1,3 +1,22 @@
 {
-  "projects": []
+  "projects": [
+    {
+      "_id": "fffc8b18-63d2-4eb5-bd85-d45cd047e682",
+      "projectName": "test project",
+      "userId": "9fc37956-5c8e-482a-a8d2-f1a623aaa087",
+      "todos": [
+        "17ee90a9-01e1-408c-b67e-975c2f94d487",
+        "3c5b25d4-9ecb-4247-8fa1-d1ae98b0a029"
+      ]
+    },
+    {
+      "_id": "5f982a89-f35a-458b-bdcb-240efa3ab70d",
+      "projectName": "test project",
+      "userId": "9fc37956-5c8e-482a-a8d2-f1a623aaa087",
+      "todos": [
+        "17ee90a9-01e1-408c-b67e-975c2f94d487",
+        "3c5b25d4-9ecb-4247-8fa1-d1ae98b0a029"
+      ]
+    }
+  ]
 }

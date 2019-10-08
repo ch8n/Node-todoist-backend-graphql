@@ -6,7 +6,7 @@ const bCrypt = require('bcryptjs')
 
 
 const getUserTodo = async (userId) => {
-    let user = await userDB.find({ _id: id }).value()
+    let user = await todoDB.filter({ userId: userId }).value()
     return user
 }
 
@@ -57,33 +57,33 @@ const rootResolver = {
     },
 
     createProject: async (args) => {
-        console.clear()
         console.log(args);
         const { projectInput } = args
-        let userTodo = getUserTodo(projectInput.userId)
+        let userTodo = await getUserTodo(projectInput.userId)
+        console.log(userTodo.length);
         if (userTodo.length > 0) {
-            //todo find todo and put projectId
-            const project = {
+
+            let project = {
                 _id: uuid(),
                 projectName: projectInput.projectName,
                 userId: projectInput.userId,
                 todos: projectInput.todos
             }
-            console.log(project);
-            projectInput.todos.forEach(async (todoIds) => {
-                let task = userTodo.filter(userTodo => userTodo._id === todoIds)
-                task.projectId = project_id
-                let updated = await todoDB.find({ _id: task._id }).assign(task).write()
-                console.log(updated);
-            })
+
+            projectInput.todos.forEach(async (todoId) => {
+                let projectTodo = userTodo.filter(ele => ele._id === todoId)
+                if (projectTodo) {
+                    let projectIdTodo = { ...projectTodo, projectId: project._id }
+                    await todoDB.find({ _id: todoId }).assign(projectIdTodo).write()
+                }
+            });
 
             await projectDB.push(project).write()
             return {
-                project,
-                todos: []
+                ...project, todos: []
             }
         } else {
-            throw new Error("User not found")
+            throw new Error("todos not found")
         }
     },
 
